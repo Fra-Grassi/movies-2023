@@ -370,4 +370,4 @@ movie_plot <- plot_grid(
   rel_heights = c(0.5, 2, 1, 1, 0.1)
 )
 
-ggsave(filename = "test.png", movie_plot, width = 2350, height = 5500, units = "px", dpi = 300, bg = "white")
+ggsave(filename = "movies-2023.png", movie_plot, width = 2350, height = 5500, units = "px", dpi = 300, bg = "white")
