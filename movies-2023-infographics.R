@@ -90,14 +90,16 @@ plot_color <- "#D28389"
 # (this is just based on colors that I associate to my favorite movies of the genre)
 col_genre <- c("#4F7389",  # Action ("The Bourne Identity")
                "#F7DB49",  # Animation ("Toy Story")
+               "#DF5F49",  # Comedy ("Napoleon Dynamite")
                "#6f0000",  # Crime ("Fargo")
+               "#F9CC47",  # Documentary ("Bowling for Columbine")
                "#CB8F31",  # Drama ("No Country for Old Men")
                "#753081",  # Horror (Dario Argento's "Suspiria")
                "#C0CBCA",  # SciFi ("2001 A Space Odyssey")
                "#778F84",  # Thriller ("Memento")
                "#7B452A")  # War ("Full Metal Jacket")
 # Give names to elements in the vector to reorder them later in plotting:
-names(col_genre) <- c("Action", "Animation", "Crime", "Drama", "Horror", "SciFi", "Thriller", "War")
+names(col_genre) <- c("Action", "Animation", "Comedy", "Crime", "Documentary", "Drama", "Horror", "SciFi", "Thriller", "War")
 
 # General plot settings --------
 
