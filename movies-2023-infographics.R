@@ -4,7 +4,7 @@
 # Date: 01-05-23
 
 # Create a little infographics with data about the movies I watched in 2023.
-# Since I'm first codind this in May and will hopefully keep watching movies in the next months,
+# Since I'm first coding this in May and will hopefully keep watching movies in the next months,
 # the idea is to make the code as flexible as possible so to automatically update it when new movies
 # will be added to the list.
 
@@ -13,7 +13,10 @@
 
 # The infographics will contain:
 # - A circular bar plot, where the circle represents the months of the year. Each movie is a bar on the circle, 
-#   and the lenght of the bar represents the duration of the movie
+#   and the length of the bar represents the duration of the movie
+# - A bar plot showing minutes watched per platform
+# - A bar plot showing minutes watched per genre
+# - A bar plot showing distribution of rating
 
 # Libraries --------
 library(tidyverse)
@@ -21,6 +24,7 @@ library(lubridate)
 library(geomtextpath)  # to rotate axis tick labels around polar chart
 library(ggimage)  # to add platform labels to plots
 library(cowplot)
+library(scico)
 
 # Load and clean data --------
 
@@ -40,7 +44,7 @@ df <- read_csv(file = "movies-2023.csv")  # Load raw data
 # (don't know if this is the right way, but still learning to handle dates in R)
 # Also, convert "Platform" and "Genre" to factors.
 # NOTE: must return on this point, since new genres might be added in the future
-# and this approach is not very general so far (possibly same for "Platform".
+# and this approach is not very general so far (possibly same for "Platform").
 
 df <- df %>% 
   mutate(Date = paste0(Date, "/23")) %>%  # Add year to date
@@ -87,19 +91,12 @@ rating_df <- df %>%
 plot_color <- "#D28389"
 
 # Define a color palette for movie genres
-# (this is just based on colors that I associate to my favorite movies of the genre)
-col_genre <- c("#4F7389",  # Action ("The Bourne Identity")
-               "#F7DB49",  # Animation ("Toy Story")
-               "#DF5F49",  # Comedy ("Napoleon Dynamite")
-               "#6f0000",  # Crime ("Fargo")
-               "#F9CC47",  # Documentary ("Bowling for Columbine")
-               "#CB8F31",  # Drama ("No Country for Old Men")
-               "#753081",  # Horror (Dario Argento's "Suspiria")
-               "#C0CBCA",  # SciFi ("2001 A Space Odyssey")
-               "#778F84",  # Thriller ("Memento")
-               "#7B452A")  # War ("Full Metal Jacket")
-# Give names to elements in the vector to reorder them later in plotting:
-names(col_genre) <- c("Action", "Animation", "Comedy", "Crime", "Documentary", "Drama", "Horror", "SciFi", "Thriller", "War")
+# We are going to use "romaO" palette from Scico package
+# Since new genres can be added in the future, first we extract the genres added so far,
+# then we sort them in alphabetical order, and we use that to assign colors.
+genre_names <- sort(unique(genre_df$Genre))
+col_genre <- scico(length(genre_names), palette = "romaO")
+names(col_genre) <- genre_names
 
 # General plot settings --------
 
